@@ -1,0 +1,95 @@
+Answer 1:-
+
+#include <stdio.h>
+
+int main(){
+    
+    int n,m,i,j,b=0;
+    printf("Enter the row:\n");
+    scanf("%d",&n);
+    printf("Enter the col:\n");
+    scanf("%d",&m); 
+    int arr[n][m];
+    if(n!=m)
+    
+    {
+        printf("Please enter a Square Matrix!\n");
+        
+    }
+    else
+    {
+        printf("Enter the elements:\n");
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                scanf("%d",&b);
+                arr[i][j]=b;
+                
+            }
+            printf("\n");
+            
+        }
+        printf("\n");
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                printf("%d", arr[i][j]);
+            }
+            printf("\n");
+            
+        }
+    int k = 0, l = 0;
+        while(k < m && l < n)
+        {
+            for(i = l; i < n; i++)
+            {
+                printf("%d",arr[k][i]);
+            }
+                k++;
+                for(i = k; i < m; i++)
+                {
+                    printf("%d",arr[i][n-1]);
+                    
+                }
+                n--;
+                if(k < m)
+                {
+                    for(i = n - 1; i >= 0; --i)
+                    {
+                        printf("%d",arr[m-1][i]);
+                    }
+                    m--;
+                }
+                if(l < n)
+            {
+                for(i = m - 1; i >= k; i--)
+                {
+                    printf("%d",arr[i][l]);
+                }
+                l++;
+            }
+        }
+    return 0;
+    }
+}
+
+
+Answer 3:-
+
+#include <stdio.h>
+
+int main() 
+{
+    char upper;
+    int a;
+    
+    printf("Enter the letter in Upper case\n");
+    scanf("%c", &upper);
+    
+    a = upper + 32;  
+    printf (" %c character in Lower case:%c", upper, a);
+
+    return 0;
+}
