@@ -1,7 +1,7 @@
 #include <stdio.h>
 #define row 3
-#define coloumn 6
-void spiral(int m, int n, int a[row][coloumn])
+#define column 6
+void spiral(int m, int n, int a[row][column])
 {
         int i, k = 0, l = 0;
 
@@ -44,12 +44,12 @@ void spiral(int m, int n, int a[row][coloumn])
 
 int main()
 {
-        int a[row][coloumn] =
+        int a[row][column] =
           { {1,  2,  3,  4,  5,  6},
                 {7,  8,  9,  10, 11, 12},
                 {13, 14, 15, 16, 17, 18}
         };
 
-        spiral(row, coloumn, a);
+        spiral(row, column, a);
         return 0;
 }
