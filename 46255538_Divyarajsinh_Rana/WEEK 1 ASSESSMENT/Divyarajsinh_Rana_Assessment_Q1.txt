@@ -1,0 +1,32 @@
+Ans 1: 
+#include<stdio.h>
+#include<string.h>
+
+#define MAX 100
+int main(){
+        char s[MAX];
+        int x,y,z;
+        x = 0;
+        printf("Enter string: ");
+	      scanf("%s",&s);
+        while(x < strlen(s))
+        {
+                y = x + 1;
+                while(s[y] != '\0')
+                {
+                        if(s[y] == s[x])
+                        {
+                                z = y;
+                                while(s[z] != '\0');
+                                {
+                                        s[z] = s[z + 1];
+                                        z++;
+                                }
+                        }
+                        y++;
+                }
+                x++;
+        }
+        printf("\n String after removing duplicates = %s\n",s);
+        return 0;
+}
