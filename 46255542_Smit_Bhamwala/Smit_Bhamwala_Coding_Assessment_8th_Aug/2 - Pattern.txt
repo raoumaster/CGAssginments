@@ -1,0 +1,72 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(){
+        int r,c;
+        printf("\nNumber of rows: ");
+        scanf("%d",&r);
+        printf("\nInput the number of columns : ");
+        scanf("%d",&c);
+        int arr[c][r];
+        int i,j;
+        if(c==r)
+        {
+                printf("\nInput the matrix \n");
+                for(i = 0; i < c; i++)
+                {
+                        for(j = 0; j < r; j++)
+                        {
+                                scanf("%d",&arr[i][j]);
+                        }
+                }
+
+
+                printf("\nThe Matrix is \n");
+                for(i = 0; i < c; i++)
+                {
+                        for(j = 0; j < r; j++)
+                        {
+                                printf("%d ",arr[i][j]);
+                        }
+                        printf("\n");
+                }
+                printf("\nSpiral Matrix : ");
+                int k = 0, l = 0;
+                while(k < c && l < r)
+                {
+                        for(i = l; i < r; i++)
+                        {
+                                printf("%d ",arr[k][i]);
+                        }
+                        k++;
+                        for(i = k; i < c; i++)
+                        {
+                                printf("%d ",arr[i][r-1]);
+                        }
+                        r--;
+                        if(k < c)
+                        {
+                                for(i = r-1; i >= 0; --i)
+                                {
+                                        printf("%d ",arr[c-1][i]);
+                                }
+                                c--;
+                        }
+                        if(l < r)
+                        {
+                                for(i = c - 1; i >= k; i--)
+                                {
+                                        printf("%d ",arr[i][l]);
+                                }
+                                l++;
+                        }
+                }
+        }
+        else
+        {
+                printf("Insert a square matrix");
+        }
+
+        printf("\n");
+        return 0;
+}
