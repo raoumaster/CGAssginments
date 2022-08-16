@@ -75,7 +75,7 @@ patient *writeinfo(patient *ptr, int i){
     // To write the structure data to the file
     FILE * file= fopen("test.txt", "wb");
     if (file != NULL) {
-        fwrite(&temp, SIZE_STRUCTURE(ptr+i), 4, file);
+        fwrite(&temp, SIZE_STRUCTURE(ptr+i), 20, file);
         fclose(file);
     }
     free(temp);
