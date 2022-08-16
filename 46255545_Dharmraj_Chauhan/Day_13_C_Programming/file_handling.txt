@@ -1,117 +1,192 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
+#include <stdlib.h>
 
  
 
-#define MAX_RANGE 1023
-#define MAX_LENGTH 30
-#define EXIT_SUCCESS 0
-#define EXIT_FAILURE 1
+#define STACK_SIZE 10
+#define MAX_LENGTH 80
+#define MAX_LINE 2048
 
  
 
-// for validate the input
-int val_input(char *input){ //server0:0 server1:1021 server2:22 server3:1 server4:1022
-    char *sname = NULL;
-    char *portnum = NULL;
-    char token[MAX_LENGTH];
-    int portNo;
+/* 
+This code is store string in the stack format. mean last in first out(LIFO) manner.
+There main method containing 3 function:-
+
+ 
+
+(1)push :- which push/place your(input queary) in stack manner.
+(2)pop :- which remove the first line of the source file.
+(3)display :- which display the content of the source file. 
+*/
+
+ 
+
+char item[MAX_LENGTH];
+
+ 
+
+int isEmpty(const char *str){
+    char ch;
+    do{
+        ch = *(str++);
+        if(ch != '\n' && ch != '\0')
+            return 0;
+    } while (ch != '\0');
+    return 1;
+}
+
+ 
+
+void removeEmptyLines(){
+    char buffer[MAX_LENGTH];
+    FILE *fptr = fopen("data.txt", "r");
+    FILE *temp = fopen("delete.txt", "w");
     
-    int serverLen;
-    int portLen;
-    
-    // return values
-    int flag1 = 1, flag2 = 1;
-    
-    strcpy(token,input);
-    
-    sname = strtok(token, ":");
-    // printf("serverName:- %s", serverName); 
-    portnum = strtok(NULL, ":");
-    // printf("portNumber:- %s", portNumber); 
-    serverLen = strlen(sname);
-    portLen = strlen(portnum);
-    
-    // checking server name
-    for(int i = 0; i < serverLen; i++){
-        if(!isalpha(sname[i])){
-            flag1 = 0;
-            break;
-        }
+    while ((fgets(buffer, MAX_LENGTH, fptr)) != NULL)
+    {
+        if(!isEmpty(buffer))
+            fputs(buffer, temp);
     }
-    // checking port name
-    for(int i = 0; i < portLen; i++){
-        if(!isdigit(portnum[i])){
-            flag2 = 0;
-            break;
-        }
-    }
+    fclose(fptr);
+    fclose(temp);
     
-    // funcation return part handler
-    if(flag1 && flag2){
-        // convert string into int and check weather it's between 0 to 1023
-        if(atoi(portnum)>0 && atoi(portnum)<= MAX_RANGE){
-            return (EXIT_FAILURE);
-        }
-    }
-    return(EXIT_SUCCESS);
+    rename("delete.txt", "data.txt");
 }
     
-char* display(char *input){
+void push(char *item){
     
-    // printf("\nstart the second func");
-    char token[MAX_LENGTH];
+    FILE *fptr = fopen("data.txt", "r");
+    FILE *temp = fopen("delete.txt", "w");
     
-    char *sname = NULL;
-    char *portnum = NULL;
-    char *name = NULL;
-    int serverLen;
+    int current_line = 1;
+    char buffer[MAX_LENGTH];
+    char myTxt[MAX_LENGTH];
     
-    // printf("\nsec func part1 complete");
-    strcpy(token,input);
-    sname = strtok(token, ":");
-    portnum = strtok(NULL, ":");
-    
-    // printf("\nsec func part2 complete");
-    printf("\nServer Name: %s\t Port No: %s\n", sname, portnum);
-    serverLen = strlen(sname);
-    name = (char*) calloc((serverLen+1), sizeof(char));
-    strcpy(name, sname);
-    // printf("\nsec func part3 complete");
-    return name;
-}
-    
-int main(int argc, char *argv[]){
-    int i, value;
-    char *fullstring[MAX_LENGTH];
-    char *name = NULL;
-    char str[MAX_LENGTH];
-    
-    if(argc < 3){
-        printf("\nPlease provide more then 3 arguments!!!");
-        exit(EXIT_FAILURE);     
-    }
-    
-    for(i = 1; i < argc; i++){
-        value = val_input(argv[i]);
-        if(value == 1){
-            exit(EXIT_FAILURE);
+    while ((fgets(buffer, sizeof(buffer), fptr)) != NULL)
+    {
+        if(current_line == 1){
+            printf("Your enterd line is:- %s", item);
+            fprintf(temp, "%s\n", item);
+            fprintf(temp, "%s", buffer);
+        } else { 
+            printf("\nLine copying from another file:- %s", buffer);
+            fprintf(temp, "%s", buffer);
         }
-        printf("Second funcation direct print:-");
-        name = display(argv[i]);
-        fullstring[i] = name;
+        current_line++;
     }
+        
+    fclose(fptr);
+    fclose(temp);
     
-    for(i = 1; i < argc; i++){
-        printf("\nprintf :- %s", fullstring[i]);
+    rename("delete.txt", "data.txt");
+    
+    removeEmptyLines();
+}
+
+ 
+
+void display(){
+    FILE *rptr = fopen("data.txt", "r");
+    if (rptr == NULL){
+        printf("Cannot open file \n");
+        exit(0);
     }
-    printf("\nhii i am");
-    for (int i=0; i<argc; i++) {
-        printf("free:- %s\n",fullstring[i]);
-        free(fullstring[i]);
+    char c = fgetc(rptr);
+    while (c != EOF){
+        printf ("%c", c);
+        c = fgetc(rptr);
     }
-    printf("\nsizeof:-  %ld", sizeof(fullstring));
+    fclose(rptr);
+}
+
+ 
+
+void pop(){
+    FILE *fptr = fopen("data.txt", "r");
+    FILE *temp = fopen("delete.txt", "w");
+    
+    int current_line = 1;
+    char buffer[MAX_LENGTH];
+    char myTxt[MAX_LENGTH];
+    
+    while ((fgets(buffer, sizeof(buffer), fptr)) != NULL)
+    {
+        if(current_line == 1){
+            printf("First line is passing");
+        } else { 
+            printf("\nAddeding into file this line:- %s", buffer);
+            fputs(buffer, temp);
+        }
+        current_line++;
+    }
+        
+    fclose(fptr);
+    fclose(temp);
+    
+    rename("delete.txt", "data.txt");
+}
+
+ 
+
+int counter(){
+    char buffer[MAX_LENGTH];
+    FILE *fptr = fopen("data.txt", "r");
+    size_t t_lines, s_line, length;
+    s_line = 0;
+    t_lines = 0;
+    int i = 0, z = 0;
+    
+    while (fgets(buffer, MAX_LENGTH, fptr) != NULL) {
+        t_lines++;
+        i++;
+        length = strlen(buffer);
+        if (length > s_line){
+            s_line = length;
+            z = i;
+        }
+    }
+    fclose(fptr);
+    printf("%d no line is longest", z);
+    
+    return s_line;
+}
+
+ 
+
+
+int main(){
+    
+    char item[MAX_LENGTH];    
+    int choice = 0;
+
+ 
+
+    for(;;){
+        printf("\n1. push,  2. pop,  3. Display,  4.Counting  5.Exit");
+        printf("\nEnter the choice:- ");
+        scanf("%d",&choice);
+        switch(choice){
+            case 1:
+                printf("Enter the item to be inserted:- ");
+                FILE *sptr = fopen("src.txt", "r");
+                while ((fgets(item, MAX_LENGTH, sptr)) != NULL){
+                    push(item);
+                }
+                fclose(sptr);
+                break;
+            case 2:
+                pop();
+                break;
+            case 3:
+                display();
+                break;
+            case 4:
+                printf("\nMax length line:-%d", counter());
+            default:
+                exit(0);
+        }
+    }
     return 0;
 }
