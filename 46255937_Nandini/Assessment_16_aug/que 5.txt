@@ -1,0 +1,141 @@
+#include <stdio.h>
+#include <CUnit/CUnit.h>
+#include <CUnit/Basic.h>
+
+
+
+int prime (int n)
+{
+
+
+
+       int i, flag = 0;
+
+
+
+ // 0 and 1 are not prime numbers
+//change flag to 1 for non-prime number
+        if (n == 0 || n == 1)
+                flag = 1;
+
+
+
+       for (i = 2; i <= n / 2; ++i) {
+
+
+
+//if n is divisible by i, then n is not prime
+//change flag to 1 for non-prime number
+        if (n % i == 0) {
+                flag = 1;
+                break;
+    }
+  }
+
+
+
+//flag is 0 for prime numbers
+        if (flag == 0)
+                return flag;
+        else
+                return flag;
+
+
+
+return 0;
+}
+
+
+
+
+//writing the test case function
+//checking for prime
+
+
+
+void test_prime_0(void)
+{
+        CU_ASSERT_EQUAL(prime(0),1);
+}
+
+
+
+void test_prime_1(void)
+{
+        CU_ASSERT_EQUAL(prime(1),1);
+}
+
+
+
+void test_prime_2(void)
+{
+        CU_ASSERT_EQUAL(prime(2),0);
+}
+
+
+
+void test_prime_3(void)
+{
+        CU_ASSERT_EQUAL(prime(3),0);
+}
+
+
+
+void test_prime_4(void)
+{
+        CU_ASSERT_EQUAL(prime(4),1);
+}
+
+
+
+void test_prime_5(void)
+{
+        CU_ASSERT_EQUAL(prime(5),0);
+}
+
+
+
+void test_prime_6(void)
+{
+        CU_ASSERT_EQUAL(prime(6),1);
+}
+
+
+
+void test_prime_7(void)
+{
+        CU_ASSERT_EQUAL(prime(7),0);
+}
+
+
+
+void test_prime_8(void)
+{
+        CU_ASSERT_EQUAL(prime(8),1);
+}
+
+
+
+int main()
+{
+
+
+
+       CU_initialize_registry();
+        CU_pSuite facSuite = CU_add_suite("prime",NULL,NULL);
+        CU_add_test(facSuite , "fac_Suite(0)",test_prime_0);
+        CU_add_test(facSuite , "fac_Suite(1)",test_prime_1);
+        CU_add_test(facSuite , "fac_Suite(2)",test_prime_2);
+        CU_add_test(facSuite , "fac_Suite(3)",test_prime_3);
+        CU_add_test(facSuite , "fac_Suite(4)",test_prime_4);
+        CU_add_test(facSuite , "fac_Suite(5)",test_prime_5);
+        CU_add_test(facSuite , "fac_Suite(6)",test_prime_6);
+        CU_add_test(facSuite , "fac_Suite(7)",test_prime_7);
+        CU_add_test(facSuite , "fac_Suite(8)",test_prime_8);
+        CU_basic_run_tests();
+        CU_cleanup_registry();
+        return 0;
+
+
+
+}
