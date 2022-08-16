@@ -1,0 +1,48 @@
+Ex-1  Remove duplicate from the given string.
+
+#include<stdio.h>
+#include<string.h>
+
+int main()
+{
+        char str[100];
+        int i, j ,k;
+        printf("Please enter any String: ");
+        scanf("%s", str);
+
+        for(i=0;i<strlen(str);i++)
+        {
+                for(j=i+1;str[j]!='\0';j++)
+                {
+                        if(str[j] == str[i])
+                        {
+                                for(k=j; str[k]!='\0';k++)
+                                {
+                                        str[k] = str[k+1];
+                                }
+                        }
+                }
+        }
+        printf("The final String after removing all duplicates = %s\n", str);
+
+        return 0;
+}
+
+Ex-3 Prompt the user to enter an upper case letter and display the letter in the lower case.
+
+#include<stdio.h>
+
+
+int main()
+{
+        char upper;
+        int ascii;
+
+        //convert in lower case
+        printf("Enter the Upper case character: ");
+        scanf("%c", &upper);
+        ascii = upper + 32;
+        printf("%c character in lower case is: %c\n", upper,ascii);
+        return 0;
+}
+
