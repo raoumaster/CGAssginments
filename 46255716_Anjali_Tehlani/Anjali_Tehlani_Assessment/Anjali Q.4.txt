@@ -1,0 +1,65 @@
+// Assessment2 Q.4 -Team 4 Anjali Tehlani
+
+//write a program to accept two digits and a character from the command line. the character should be mathematical operator to perform airthmetic operations or bitwise operators. display the result and store it in file such that each time you execute the code, the new operations should not overwrite the previous data.
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+
+
+int main(int argc, char *argv[])
+{
+        if(argc < 4)
+        {
+                printf("No operands / operator exist calc program exits\n");
+                return 1;
+        }
+        unsigned int int1;
+        unsigned int int2;
+        int out = 0;
+        FILE *f;
+        char *fname = "result.txt";
+        int1 = atoi(argv[1]);
+        int2 = atoi(argv[3]);
+        char operator = argv[2][0];
+        f = fopen(fname, "a");
+//printf("\nInt1 = %d, Int2 = %d, Operator = %c\n", int1, int2, operator);
+        switch(operator)
+        {
+                case('+'):
+            out = int1+int2;
+                //return out;
+                break;
+
+                case('X'):
+                out = int1*int2;
+                //return out;
+                break;
+
+                case('A'):
+                out = int1 & int2;
+                //return out;
+                break;
+
+                case('/'):
+                out = int1/int2;
+                //return out;
+                break;
+
+                case('B'):
+                out = int1 | int2;
+                //return out;
+                break;
+
+                case('^'):
+                out = int1 ^ int2;
+                //return out;
+                break;
+
+        }
+        printf("\n result = %d\n", out);
+        fprintf(f,"\n Result = %d \n",out);
+
+        fclose(f);
+}
