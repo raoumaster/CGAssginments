@@ -1,0 +1,175 @@
+/* C program ming file handling assignment: write an application that performs 
+   few operations on a list of sentence read from a file and enerate an output file 
+   consisting of the lines as in the input file but the last one coming first. Implement 
+   the application by defining the functions given below. The input and output file 
+   names are to accepted as command line argumments.
+*/
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+#define SIZE_OF_STACK 20
+#define MAXLEN 80
+#define MAX_LINE 2048
+
+char itm[MAXLEN];
+
+//check whether stack is empty or not and only then the operations will be performed 
+
+int isEmpty(const char *s){
+    char c;
+    do{
+        c = *(s++);
+        if(c != '\n' && c != '\0')
+            return 0;
+    } 
+    while (c != '\0');
+        return 1;
+}
+
+void rmBlankLines(){
+    char buff[MAXLEN];
+    FILE *fp = fopen("data.txt", "r");
+    FILE *t = fopen("delete.txt", "w");
+    
+    while ((fgets(buff, MAXLEN, fp)) != NULL)
+    {
+        if(!isEmpty(buff))
+            fputs(buff, t);
+    }
+    fclose(fp);
+    fclose(t);
+    
+    rename("delete.txt", "data.txt");
+}
+    
+//push function for storing a sentence or lines
+void push(char *itm){
+    
+    FILE *fp = fopen("data.txt", "r");
+    FILE *t = fopen("delete.txt", "w");
+    
+    int cur_line = 1;
+    char buff[MAXLEN];
+    char txt[MAXLEN];
+    
+    while ((fgets(buff, sizeof(buff), fp)) != NULL)
+    {
+        if(cur_line == 1){
+            printf("Your enterd line is:- %s", itm);
+            fprintf(t, "%s\n", itm);
+            fprintf(t, "%s", buff);
+        } 
+        else { 
+            printf("\nLine copying from another file:- %s", buff);
+            fprintf(t, "%s", buff);
+        }
+        cur_line++;
+    }
+        
+    fclose(fp);
+    fclose(t);
+    
+    rename("delete.txt", "data.txt");
+    
+    rmBlankLines();
+}
+
+void display_func(){
+    FILE *fp = fopen("data.txt", "r");
+    if (fp == NULL){
+        printf("Cannot open file \n");
+        exit(0);
+    }
+    char c = fgetc(fp);
+    while (c != EOF){
+        printf ("%c", c);
+        c = fgetc(fp);
+    }
+    fclose(fp);
+}
+
+//removing line by line from stack
+
+void pop_func(){
+    FILE *fp = fopen("data.txt", "r");
+    FILE *t = fopen("delete.txt", "w");
+    
+    int cur_line = 1;
+    char buff[MAXLEN];
+    char txt[MAXLEN];
+    
+    while ((fgets(buff, sizeof(buff), fp)) != NULL)
+    {
+        if(cur_line == 1){
+            printf("First line is passing");
+        } 
+        else 
+        { 
+            printf("\nAddding into file this line:- %s", buff);
+            fputs(buff, t);
+        }
+        cur_line++;
+    }
+        
+    fclose(fp);
+    fclose(t);
+    
+    rename("delete.txt", "data.txt");
+}
+
+int ctr(){
+    char buff[MAXLEN];
+    FILE *fp = fopen("data.txt", "r");
+    size_t t_lines, s_line, length;
+    s_line = 0;
+    t_lines = 0;
+    int i = 0, z = 0;
+    
+    while (fgets(buff, MAXLEN, fp) != NULL) {
+        t_lines++;
+        i++;
+        length = strlen(buff);
+        if (length > s_line){
+            s_line = length;
+            z = i;
+        }
+    }
+    fclose(fp);
+    printf("%d no line is longest", z);
+    
+    return s_line;
+}
+
+int main(){
+    
+    char itm[MAXLEN];    
+    int ch = 0;
+    for(;;){
+        printf("\n1. push,  2. pop,  3. Display,  4.Counting  5.Exit");
+        printf("\nEnter the choice:- ");
+        scanf("%d",&ch);
+        switch(ch){
+            case 1:
+                printf("Enter the item to be inserted:- ");
+                FILE *sptr = fopen("src.txt", "r");
+                while ((fgets(itm, MAXLEN, sptr)) != NULL){
+                    push(itm);
+                }
+                fclose(sptr);
+                break;
+            case 2:
+                pop_func();
+                break;
+            case 3:
+                display_func();
+                break;
+            case 4:
+                printf("\nMax length line:-%d", ctr());
+            default:
+                exit(0);
+        }
+    }
+    return 0;
+}
