@@ -1,0 +1,35 @@
+Q.1
+/*code to read a line from cmd and store in a stack form */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#define SIZE 80
+
+// Reading the file
+
+void read(FILE * fp) {
+        char ch;
+        do {
+                c = fgetc(fp);
+                putchar(c);
+        } while (c != EOF);
+}
+
+int main() {
+        FILE *fp;
+        char append[SIZE];
+
+        printf("Enter data to append: ");
+
+        fgets(append, SIZE, stdin);
+
+
+        read(fp);
+
+        fputs(append, fp);
+
+        fclose(fp);
+
+        return 0;
+}
