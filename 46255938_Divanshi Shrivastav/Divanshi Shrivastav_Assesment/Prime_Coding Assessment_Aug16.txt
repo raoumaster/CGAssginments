@@ -1,0 +1,90 @@
+// Group:4 Performed by Divanshi Shrivastav & Anjali Tehlani
+//Write unit test cases for a prime number program
+
+#include <stdio.h>
+#include "CUnit/CUnit.h"
+#include "CUnit/Basic.h"
+
+
+
+int prime(int num)
+{
+        int i,flag=0;
+        if(num == 0 || num == 1)
+        {
+                flag = 1;
+                return flag;
+        }
+        for(i=2;i<=num/2;i++)
+        {
+                if(num%i==0){
+                        //      return 0;
+                        flag=1;
+                        return flag;
+                }
+        }
+
+
+        return flag;
+}
+
+
+
+//writing the test case functions
+// checking for prime no
+void test_prime_0(void)
+{
+        CU_ASSERT_EQUAL(prime(0),1);
+}
+void test_prime_1(void)
+{
+        CU_ASSERT_EQUAL(prime(32),1);
+}
+void test_prime_2(void)
+{
+        CU_ASSERT_EQUAL(prime(5),0);
+}
+void test_prime_3(void)
+{
+        CU_ASSERT_EQUAL(prime(23),0);
+}
+void test_prime_4(void)
+{
+        CU_ASSERT_EQUAL(prime(242),1);
+}
+void test_prime_5(void)
+{
+        CU_ASSERT_EQUAL(prime(109),0);
+}
+void test_prime_6(void)
+{
+        CU_ASSERT_EQUAL(prime(127),0);
+}
+void test_prime_7(void)
+{
+        CU_ASSERT_EQUAL(prime(212),1);
+}
+void test_prime_8(void)
+{
+        CU_ASSERT_EQUAL(prime(228),1);
+}
+
+
+int main()
+{
+        CU_initialize_registry();
+        CU_pSuite primeSuite = CU_add_suite("prime", NULL, NULL);
+        CU_add_test(primeSuite, "prime_Suite(0)", test_prime_0);
+        CU_add_test(primeSuite, "prime_Suite(1)", test_prime_1);
+        CU_add_test(primeSuite, "prime_Suite(2)", test_prime_2);
+        CU_add_test(primeSuite, "prime_Suite(3)", test_prime_3);
+        CU_add_test(primeSuite, "prime_Suite(4)", test_prime_4);
+        CU_add_test(primeSuite, "prime_Suite(5)", test_prime_5);
+        CU_add_test(primeSuite, "prime_Suite(6)", test_prime_6);
+        CU_add_test(primeSuite, "prime_Suite(7)", test_prime_7);
+        CU_add_test(primeSuite, "prime_Suite(8)", test_prime_8);
+
+        CU_basic_run_tests();
+        CU_cleanup_registry();
+        return 0;
+}
