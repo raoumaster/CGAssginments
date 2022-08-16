@@ -67,15 +67,15 @@ patient *writeinfo(patient *ptr, int i){
     strncpy((ptr+i)->address, patientAdress, ADDRESS_SIZE);
     
     
-    // Assigning the file pointer and store the ptr data in temp pointer
-    patient *temp = NULL;
-    temp = malloc(SIZE_STRUCTURE(patient));
-    memcpy(temp,(ptr+i),SIZE_STRUCTURE(patient));
-    
     // To write the structure data to the file
-    FILE * file= fopen("test.txt", "wb");
+    FILE * file= fopen("test.txt", "a");
     if (file != NULL) {
-        fwrite(&temp, SIZE_STRUCTURE(ptr+i), 20, file);
+        fprintf(file, "P%d\t", (101+i));
+        fprintf(file, "%s\t", (ptr+i)->name);
+        fprintf(file, "%d\t", (ptr+i)->age);
+        fprintf(file, "%s\t", (ptr+i)->address);
+        fprintf(file, "%ld\n", (ptr+i)->phoneno);
+        // fwrite(&temp, SIZE_STRUCTURE(ptr+i), 20, file);
         fclose(file);
     }
     free(temp);
