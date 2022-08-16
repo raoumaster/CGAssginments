@@ -1,4 +1,4 @@
-// Assessment2 Q.4 -Team 4 performed by Dixit,smit
+// Assessment2 Q.4 
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
