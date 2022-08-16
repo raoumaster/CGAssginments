@@ -1,5 +1,7 @@
-//Group 4 : Performed by Anjali Tehlani & Divanshi Shrivastav
+//Group 4 : Anjali Tehlani
 //unit testcases program for prime no
+
+//Write unit test cases for a prime number program
 
 #include <stdio.h>
 #include "CUnit/CUnit.h"
