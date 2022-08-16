@@ -1,0 +1,82 @@
+/* Nalanda C Program Structures Assignment */
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+
+#define STRUCT_SIZE(x) sizeof(x)
+#define NAME_SIZE 80
+
+//defining a structure named person
+
+typedef struct
+{
+        char *name;
+        int age;
+        float weight;
+}person;
+
+
+//creating free function to free the memory being allocated
+void free_function(person *p)
+{
+        free(p);
+        p = NULL;
+}
+
+//display function 
+void display_function(person *p, int n)
+{
+        printf("Displaying Information: \n");
+        for(int i=0; i<n; i++)
+        {
+                printf("Name %s\tAge: %d\tweight: %f\n", (p+i)->name, (p+i)->age, (p+i)->weight);
+        }
+}
+
+person* copy(person *p, int n)
+{
+        person *cpy = NULL;
+        cpy = malloc(n * STRUCT_SIZE(person));
+        memcpy(cpy, (p+n-1),STRUCT_SIZE(person));
+        display_function(cpy,1);
+
+        free_function(cpy);
+}
+
+int main()
+{
+        person *p = NULL;
+        int i,n;
+        char pName[NAME_SIZE] = {0};
+        int pAge = 0;
+        float pWeight = 0;
+
+        printf("\n Enter name of persons : \n");
+        scanf("%d", &n);
+        p = malloc(n * STRUCT_SIZE(person));
+        if(p == NULL)
+        {
+                return 0;
+        }
+
+        for(i=0; i<n; i++)
+        {
+                printf("Enter %d Person name, age and weight :", i+1);
+                scanf("%d %f",&pAge, &pWeight);
+                (p+i)->age = pAge;
+                (p+i)->weight = pWeight;
+                getchar();
+                fgets(pName, NAME_SIZE, stdin);
+                (p+i)->name = malloc(NAME_SIZE);
+                if((p+i) == NULL)
+                {
+                        printf("Memory not allocated properly");
+                        return 0;
+                }
+                strncpy((p+i) -> name, pName, NAME_SIZE);
+        }
+
+        display_function(p,n);
+        copy(p,n);
+        free_function(p);
+}
