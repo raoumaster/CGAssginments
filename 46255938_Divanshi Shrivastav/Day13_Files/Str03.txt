@@ -1,0 +1,30 @@
+/* Code to print the max length of a line in a file.*/
+
+#include <stdio.h>
+
+int main() {
+        FILE *fp;
+        int n = 0,max=0,temp=0;
+        char fname[40], chr;
+
+        printf("Enter file name: ");
+        scanf("%s", fname);
+        fp = fopen(fname, "r");
+
+        chr = fgetc(fp);
+        while (chr != EOF){
+                temp++;
+                if (chr == '\n'){
+                        n = n + 1;
+                        if(temp>=max){
+                                max=temp;
+                                temp=0;
+                        }
+                }
+                chr = fgetc(fp);
+        }
+        fclose(fp);
+        printf("Max Length: %d\n",max-1);
+        printf("There are %d lines in %s in a file\n", n, fname);
+        return 0;
+}
