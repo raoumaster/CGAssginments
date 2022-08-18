@@ -18,22 +18,17 @@ void max(int a, int b)
 
 /*------------------------------------------------------------------------------
 	REQUIREMENT TAG: FPTR/01
-
-	Function getlongstring() to compare 2 strings and return the longest string. 
--------------------------------------------------------------------------------- */
+	Function getlongstring() to compare 2 strings and return the longest string.  */
 void getlongstring(char *str1, char *str2)
 {
 	printf("The longer string is: %s\n", strlen(str1) > strlen(str2) ? str1 : str2);
 }
 
-/*----------------------------------------------------------------------------
-	REQUIREMENT TAG: FPTR/04
 
-	Function getfunc() (to be used with choices 1 or 2 only) and should return
-	the corresponding function address as below.
-	1- address of min()
-	2- address of max() 
------------------------------------------------------------------------------- */
+/*-------------------------------------------------
+ requirement: FPTR/04 */
+	
+
 void getFun(void (*fptr)(int, int), int sel)
 {
 	if(sel == 1)
@@ -46,11 +41,10 @@ void getFun(void (*fptr)(int, int), int sel)
 	}
 }
 
-/*---------------------------------------------------------------------------------------
-	REQUIREMENT TAG: FPTR/05
-	Function process_numbers() which calls getfunc() (for choice 1 or 2) and then invokes
-	the returned function (i.e min() or max()) with given data and returns result.
------------------------------------------------------------------------------------------*/
+
+	//QUIREMENT TAG: FPTR/05
+	
+
 void process_numbers(void (*fptr)(int, int), int sel)
 {
 	getFunc(fptr, sel);
@@ -64,14 +58,9 @@ void process_numbers(void (*fptr)(int, int), int sel)
 
 }
 
-/*------------------------------------------------------------------------
-	REQUIREMENT TAG: FPTR/02
-	Function readchoice() to display a menu with 3 choices as shown below.
-	Read user choice and return it.
-	1.	Get min number
-	2.	Get maximum number
-	3.	Get longest string
--------------------------------------------------------------------------- */
+
+	// REQUIREMENT TAG: FPTR/02
+
 void readChoice(void (*fptr)(int, int), void (*fptr)(char*, char*))
 {
 	int choice;
@@ -123,8 +112,8 @@ int main()
 	void (*fpt)(int, int);
 
 /* 	------------------------------------------
-	REQUIREMENT TAG: FPTR/03 Function pointer to invoke getlongstring()
-	------------------------------------------ */
+	REQUIREMENT TAG: FPTR/03 Function pointer to invoke getlongstring() */
+
 	void (*fptr)(char*, char*);
 
 	readChoice(fpt, fptr);   // Calling the function
