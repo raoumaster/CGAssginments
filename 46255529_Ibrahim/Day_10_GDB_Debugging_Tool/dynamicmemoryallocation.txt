@@ -16,6 +16,7 @@ int i = 0; //Iterator
 int j = 0; // Iterator for Words in Array of Strings
 int length; //Length of word
 
+//Compare two given strings
 int compare(char first[], char second[])
 {
     int flag = 0; //Flag to check the comparision
@@ -39,6 +40,7 @@ int compare(char first[], char second[])
     }
 }
 
+// Search and Replace the given string
 void search_replace(char **strings, int count)
 {
     char search[50];
@@ -60,6 +62,7 @@ void search_replace(char **strings, int count)
     }
 }
 
+//Freeing the allocated Memory
 void freeMemory(char **strings, int count)
 {
     for(int m = 0; m < count; m++)
