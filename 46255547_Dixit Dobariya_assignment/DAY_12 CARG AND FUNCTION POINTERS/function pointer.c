@@ -1,6 +1,6 @@
 /*
- * Program with function readchoice() to display a menu with 3 choices.
- * Read user choice and perform the chosen function.
+ Program with function readchoice() to display a menu with 3 choices.
+ Read user choice and perform the chosen function.
  */
 
 #include<stdio.h>
@@ -34,27 +34,26 @@ void getlongstring(char *str1, char *str2)
 	1- address of min()
 	2- address of max() 
 ------------------------------------------------------------------------------ */
-void getFunc(void (*fp)(int, int), int choice)
+void getFun(void (*fptr)(int, int), int sel)
 {
-	if(choice == 1)
+	if(sel == 1)
 	{
-		printf("Address of min(): %p\n", &fp);
+		printf("Address of min(): %p\n", &fptr);
 	}
 	else
 	{
-		printf("Address of max(): %p\n", &fp);
+		printf("Address of max(): %p\n", &fptr);
 	}
 }
 
 /*---------------------------------------------------------------------------------------
 	REQUIREMENT TAG: FPTR/05
-
 	Function process_numbers() which calls getfunc() (for choice 1 or 2) and then invokes
 	the returned function (i.e min() or max()) with given data and returns result.
 -----------------------------------------------------------------------------------------*/
-void process_numbers(void (*fp)(int, int), int choice)
+void process_numbers(void (*fptr)(int, int), int sel)
 {
-	getFunc(fp, choice);
+	getFunc(fptr, sel);
 	int num1
 	int num2;
 	printf("Enter first number: ");
@@ -67,33 +66,32 @@ void process_numbers(void (*fp)(int, int), int choice)
 
 /*------------------------------------------------------------------------
 	REQUIREMENT TAG: FPTR/02
-
 	Function readchoice() to display a menu with 3 choices as shown below.
 	Read user choice and return it.
 	1.	Get min number
 	2.	Get maximum number
 	3.	Get longest string
 -------------------------------------------------------------------------- */
-void readChoice(void (*fp)(int, int), void (*fptr)(char*, char*))
+void readChoice(void (*fptr)(int, int), void (*fptr)(char*, char*))
 {
 	int choice;
 	printf("1) Get minimum number\n2) Get maximum number\n3) Get longest string\n");
 	printf("Enter your choice: ");
-	scanf("%d", &choice);
+	scanf("%d", &sel);
 	printf("\n");
 
-	switch(choice)
+	switch(sel)
 	{
 		case 1:
 			{
-				fp = min;
-				process_numbers(fp, choice);
+				fptr = min;
+				process_numbers(fptr, sel);
 			}
 			break;
 		case 2:
 			{
-				fp = max;
-				process_numbers(fp, choice);
+				fptr = max;
+				process_numbers(fptr, sel);
 			}
 			break;
 		case 3:
@@ -122,14 +120,13 @@ void readChoice(void (*fp)(int, int), void (*fptr)(char*, char*))
 
 int main()
 {
-	void (*fp)(int, int);
+	void (*fpt)(int, int);
 
 /* 	------------------------------------------
-	REQUIREMENT TAG: FPTR/03
-	Function pointer to invoke getlongstring()
+	REQUIREMENT TAG: FPTR/03 Function pointer to invoke getlongstring()
 	------------------------------------------ */
 	void (*fptr)(char*, char*);
 
-	readChoice(fp, fptr);   // Calling the function
+	readChoice(fpt, fptr);   // Calling the function
 	return 0;
 }
