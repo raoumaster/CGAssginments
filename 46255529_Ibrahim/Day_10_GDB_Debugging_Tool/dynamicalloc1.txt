@@ -1,0 +1,32 @@
+/*function to count and display 
+word count in input string*/
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+#define MAX 100
+
+char *word;
+int i = 0;
+
+void count_word(char text[])
+{
+    word = strtok(text, " ");
+    while (word != NULL)
+    {      
+        printf("%s\n",word);
+        word = strtok(NULL, " ");
+        i++;
+    }
+    printf("Number of words: %d\n",i);
+}
+
+int main()
+{
+    char text[MAX]; // Line which is entered by the user
+    printf("Enter the Text:");
+    fgets(text, MAX, stdin);
+    count_word(text);
+    return 0;
+}
