@@ -1,0 +1,90 @@
+/* Program to
+Allocate memory for name as per actual string length.
+Read person structure members from user and to populate and return the same.
+Get a copy of last person record and return the same. 
+Free all allocated memory */
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define MAX 80
+#define SIZE_STRUCT(x) sizeof(x)
+
+typedef struct person {
+   int age;
+   float weight;
+   char name[MAX];
+} person ;
+
+void display(person *ptr, int n)
+{
+    printf("Displaying Information");
+    for(int i = 0; i < n; i ++)
+    {
+        printf("Name: %s\nAge: %d\nWeight: %.2f\n",(ptr+i)->name, (ptr+i)->age, (ptr+i)->weight);
+    }
+}
+
+person* copy(person *ptr, int n)
+{
+    person *cp = NULL;
+    cp = malloc(n * SIZE_STRUCT(person));
+    memcpy(cp,(ptr+n-1),SIZE_STRUCT(person));
+    display(cp,1);
+
+    freemem(cp);
+}
+
+void freemem(person *ptr)
+{
+    free(ptr);
+    ptr = NULL;
+}
+
+int main()
+{
+   person *ptr = NULL; // Pointer for Structure Person
+   int i; // Iterator
+   int n; // Number of Person
+   int studentage; //Age of Student
+   float studentweight; // Weight of Student
+   char studentname[MAX]; // Name of the student
+
+   printf("Enter the number of persons: ");
+   scanf("%d", &n);
+
+   // allocating memory for n numbers of struct person
+   ptr = (person *) malloc(n * SIZE_STRUCT(person));
+   if (ptr == NULL)
+   {
+        return 0;
+   }
+
+   for(i = 0; i < n; ++i)
+   {
+       printf("Enter Student First Name");
+       fgets(studentname, MAX, stdin);
+       printf("Enter age and weight respectively: ");
+
+       // To access members of 1st struct person,
+       // ptr->name and ptr->age is used
+
+       // To access members of 2nd struct person,
+       // (ptr+1)->name and (ptr+1)->age is used
+       scanf("%d %f", &(ptr+i)->age, &(ptr+i)->weight);
+       (ptr+i)->age = studentage;
+       (ptr+i)->weight = studentweight;
+       (ptr+i)->name = malloc(MAX);
+       if((ptr+i) == NULL)
+       {
+            printf("Failed to allocate Memory.\n");
+            return 0;
+       }
+       strncpy((ptr+i)->name, studentname, MAX);
+    }
+    display(ptr, n);
+    copy(ptr, n);
+    freemem(ptr);
+       
+}
