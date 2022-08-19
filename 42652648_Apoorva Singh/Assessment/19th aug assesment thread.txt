@@ -1,0 +1,130 @@
+
+//program t0 accept a number to a global variable and do the given operations:
+
+
+
+#include<stdio.h>
+#include<stdio.h>
+#include<unistd.h>
+#include<pthread.h>
+
+void * palindrom(void * a){
+        int  n;
+        n = (int)a;
+        int reversed = 0, remainder, original;
+        original = n;
+        while (n != 0) {
+                remainder = n % 10;
+                reversed = reversed * 10 + remainder;
+                n /= 10;
+        }
+        if (original == reversed)
+                printf("%d is a palindrome.\n", original);
+        else
+                printf("%d is not a palindrome.\n", original);
+}
+
+void * factorial(void *m){
+        int i,fact=1,number;
+        number=(int)m;
+        for(i=1;i<=number;i++){
+                fact=fact*i;
+        }
+        printf("Factorial of %d is: %d\n",number,fact);
+}
+
+void  * tringle(void *z){
+        int i, j, rows;
+        rows=(int)z;
+        if(rows<9){
+                for (i = 1; i <= rows; ++i) {
+                for (j = 1; j <= i; ++j) {
+                printf("* ");
+                        }
+        printf("\n");
+        }
+
+        }
+        else{
+printf("number is greater than 1-9");
+        }
+}
+
+int main(int argc, char* argv[]){
+        pthread_t x1,x2,x3;
+        int n,choice;
+        printf("enter the number\n");
+        scanf("%d",&n);
+        pthread_create(&x1, NULL, tringle, n);
+        pthread_join(x1, NULL)  ;
+        pthread_create(&x2,NULL,factorial,n);
+        pthread_creacte(&x2,NULL);
+        pthread_create(&x3, NULL, factorial, n);
+        pthread_join(x3, NULL);
+        return 0;
+}
+
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////
+
+
+
+
+//replace the vowel with uppercase character
+
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <pthread.h>
+#include <string.h>
+#define MAX 35
+
+void *Thread1(void *str){
+        char array1 = (char)str;
+        char c;
+        printf("Enter the character ");
+        scanf("%c",&c);
+        for(int i=0;array1[i] !='\0';i++)
+{
+                if(c==array1[i])
+                {
+                        printf("Character is matched at %d position \n", i+1);
+                }
+        }}
+
+void *Thread2(void *str){
+        char array2 = (char)str;
+
+        for(int i=0;array2[i] !='\0';i++)
+        {
+        if(array2[i]=='a' || array2[i]=='e' || array2[i]=='i' || array2[i]=='o' || array2[i]=='u')
+                {
+             int a=array2[i];
+             a=a-32;
+             char x=(char)a
+             array2[i]=x;
+                }       }
+        printf("%s",array2);
+}
+int main()
+{
+        char str[MAX];
+        printf("Enter the String: ");
+        fgets(str, MAX, stdin);
+         pthread_t t1;
+         pthread_t t2;
+         pthread_create(&t1, NULL, &Thread1, str);
+         pthread_create(&t2, NULL, &Thread2, str);
+         pthread_join(t1,NULL);
+         pthread_t t2;
+         pthread_create(&t2,NULL,&Thread2,str);
+         pthread_join(t2,NULL);
+         return 0;
+                             }
