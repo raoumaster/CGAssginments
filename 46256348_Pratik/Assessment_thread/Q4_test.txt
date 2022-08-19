@@ -1,0 +1,86 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <pthread.h>
+#include <unistd.h>
+
+
+void *charCount(void *myfile)
+{
+        int charcount=0;
+        char c;
+
+        while (c = fgetc(myfile) != EOF)
+        {
+
+                charcount++;
+
+        }
+        printf("Character count is %d\n", charcount);
+}
+
+void *wordCount(void *myfile)
+{
+        int wordcount = 0;
+        int in_word = 0;
+        char c;
+
+        while (c = fgetc(myfile)!= EOF)
+        {
+                printf("%c",c);
+                if(ch == ' ' || ch == '\0' || ch == '\n')
+
+                {
+                        wordcount++;
+                }
+        }
+        printf("Word count is %d\n", wordcount);
+}
+void *lineCount(void *myfile)
+{
+        int linecount = 0;
+        chr c;
+
+        if(c == '\0' || c == '\n');
+        {
+                linecount++;
+        }
+        printf("Line count is %d", linecount);
+}
+int main(int argc, char*argv[])
+{
+        FILE *myfile;
+
+        pthread_t thread1;
+        pthread_t thread2;
+        pthread_t thread3;
+
+        myfile = fopen(argv[1], "r");
+
+        if(myfile == NULL);
+        {
+
+                printf("Not open file");
+                exit (0);
+
+        }
+
+        else
+
+        {
+
+
+
+                pthread_create(&thread1, NULL, charCount, myfile);
+                pthread_join(thread1, NULL);
+
+                pthread_create(&thread2, NULL, wordCount, myfile);
+                pthread_join(thread2, NULL);
+
+                pthread_create(&thread3, NULL, lineCount, myfile);
+                pthread_join(thread3, NULL);
+
+        }
+
+        fclose(myfile);
+        return 0;
+}
