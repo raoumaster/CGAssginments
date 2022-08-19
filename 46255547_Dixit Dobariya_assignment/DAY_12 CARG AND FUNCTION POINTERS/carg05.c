@@ -18,11 +18,10 @@ void extractAndConcatenate(int argc, char *argv[], char *serverName)
 {
 	for(int i=1; i<argc; i++)
 	{
-		//printf("%s\n", argv[i]);
+		
 		argv[i][strcspn(argv[i], "\n")] = 0;
 		char *token = strtok(argv[i],":");
-		//printf("%c\n", *(token+1));
-
+		
 		strcat(serverName, token);
 
 		for(int j = 0; j < strlen(token); j++)
