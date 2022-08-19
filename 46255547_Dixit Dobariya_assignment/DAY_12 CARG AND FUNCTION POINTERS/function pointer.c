@@ -25,38 +25,6 @@ void getlongstring(char *str1, char *str2)
 }
 
 
-/*-------------------------------------------------
- requirement: FPTR/04 */
-	
-
-void getFun(void (*fptr)(int, int), int sel)
-{
-	if(sel == 1)
-	{
-		printf("Address of min(): %p\n", &fptr);
-	}
-	else
-	{
-		printf("Address of max(): %p\n", &fptr);
-	}
-}
-
-
-	//QUIREMENT TAG: FPTR/05
-	
-
-void process_numbers(void (*fptr)(int, int), int sel)
-{
-	getFunc(fptr, sel);
-	int num1
-	int num2;
-	printf("Enter first number: ");
-	scanf("%d", &num1);
-	printf("Enter second number: ");
-	scanf("%d", &num2);
-	fp(num1, num2);
-
-}
 
 
 	// REQUIREMENT TAG: FPTR/02
@@ -119,3 +87,37 @@ int main()
 	readChoice(fpt, fptr);   // Calling the function
 	return 0;
 }
+
+/*-------------------------------------------------
+ requirement: FPTR/04 */
+	
+
+void getFun(void (*fptr)(int, int), int sel)
+{
+	if(sel == 1)
+	{
+		printf("Address of min(): %p\n", &fptr);
+	}
+	else
+	{
+		printf("Address of max(): %p\n", &fptr);
+	}
+}
+
+/*------------------------------------------------
+	REQUIREMENT TAG: FPTR/05 */
+	
+
+void process_numbers(void (*fptr)(int, int), int sel)
+{
+	getFunc(fptr, sel);
+	int num1
+	int num2;
+	printf("Enter first number: ");
+	scanf("%d", &num1);
+	printf("Enter second number: ");
+	scanf("%d", &num2);
+	fp(num1, num2);
+
+}
+
