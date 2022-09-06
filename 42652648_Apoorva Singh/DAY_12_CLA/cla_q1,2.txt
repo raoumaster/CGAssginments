@@ -1,0 +1,89 @@
+//Code to take 3 or more command line arguments & to check for valid servername and portnumber.
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+
+typedef struct node
+{
+        char *string;
+        struct node *next;
+} node;
+
+
+int insert() {
+        char sentence[1000];
+
+        // creating file pointer to work with files
+        FILE *fptr;
+
+        // opening file in writing mode
+        fptr = fopen("test.txt", "w");
+
+        // exiting program
+        if (fptr == NULL) {
+                printf("Error!");
+                exit(1);
+        }
+        printf("Enter a sentence:\n");
+        fgets(sentence, 1000, stdin);
+        fprintf(fptr, "%s", sentence);
+        fclose(fptr);
+        return 0;
+}
+node* fileReader(FILE *file){
+        node *ptr = malloc(sizeof(node));
+        char string[20];
+        int fileRead = fscanf(file,"%s",string);
+        if(fileRead != EOF){
+                ptr->string = strdup(string);
+                ptr->next = fileReader(file);
+        }
+        if(fileRead == EOF) {
+                return NULL;
+        }
+        return ptr;
+}
+int SearchTheElement(node* ptr,char str[100])
+{
+        int count=0;
+        node* temp=ptr;
+        while (temp != NULL)
+        {
+                if(strcmp(temp->string,str) == 0)
+                {
+                        count += 1;
+                }
+          temp = temp->next;
+        
+        }
+        return count;
+}
+
+
+
+int main()
+{
+        insert();
+        FILE *x = fopen("test.txt","r");
+        node *ptr = fileReader(x);
+
+        //printf("%s ", i->string);
+        printf("Iterating through the elements of the linked list : \n");
+        while (ptr->next != NULL)
+        {
+                printf("%s ",ptr-> string);
+                ptr = ptr->next;
+        }
+        printf("\nenter the string you want ");
+        char max[100];
+        gets(max);
+        printf("%d",SearchTheElement(ptr,max));
+        fclose(x);
+}
+
+
+
+
