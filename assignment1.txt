@@ -1,0 +1,13 @@
+#!/bin/bash
+#Menu drive
+echo -e
+read -p "Enter your choice:"choice
+case $choice in
+1)find -name emp.txt;;
+2)find -mtime-3-print;;
+3)#find .-type f\(-name"*.sh"-o-name"*.txt"\)|grep-rnw-e'company';;
+grep --include=\*.{txt,sh} -rnw -e "company";;
+4)find /home -type f;;
+5)find /root -name emp.dat &> /dev/null;;
+6)exit;;
+esac
