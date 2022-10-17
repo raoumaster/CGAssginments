@@ -1,0 +1,22 @@
+#!/bin/bash
+echo "Menu driven program for Find command. "
+read -p "Enter path name : " pname
+        echo "1. Check for the file emp.txt"
+        echo "2. search for all the files modified before three days."
+        echo "3. search for all the files ending with .txt or .dat that contains the string 'capgemini' "
+        echo "4. search for all regular files for given directory /home."
+        echo "5. search for a file emp.dat from root directory, error message should be redirected to null device."
+        echo "6. Exit"
+        read -p "Enter your choice : " choice
+        while :
+               do
+                case "$choice" in
+                1) find "${pname}" -name "emp.txt";;
+                2) find "${pname}" -mtime 3;;
+                3) find "${pname}" -type f /(-name \*.txt -o -name\ *.dat\) -exec grep -1 "capgemini" {} \; ;;
+                4) find "/home" -type f;;
+                5) find "/" -name "emp.dat" > "/dev/null";;
+                6) echo '"clear"';;
+                *) echo "Invalid choice"
+
+esac
