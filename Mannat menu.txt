@@ -14,7 +14,7 @@ while :
                 case "$choice" in
                 1) find "${pname}" -name "emp.txt";;
                 2) find "${pname}" -mtime 3;;
-                3) find "${pname}" -type f \( -iname \*.txt -o -iname\ *.dat \) -exec grep -l "capgemini" {} \; ;;
+                3) find "${pname}" -type f -name "*.txt" -exec grep -l "capgemini" {} \; ;;
                 4) find "/home" -type f;;
                 5) find "/" -name "emp.dat" 2> "/dev/null";;
                 6) echo `"clear"`;;
