@@ -12,7 +12,7 @@ do
 	case $CHOICE in
 		1) find -name "emp.text"
 			;; 
-		2) find -mtime 3
+		2) find -mtime -3
 			;;
 		3) find -name '*.dat' -o -name '*.txt' | grep "capgemini"
 			;;
