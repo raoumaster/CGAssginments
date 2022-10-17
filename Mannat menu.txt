@@ -17,7 +17,7 @@ while :
                 3) find "${pname}" -type f -name "*.txt" -exec grep -l "capgemini" {} \; ;;
                 4) find "/home" -type f;;
                 5) find "/" -name "emp.dat" 2> "/dev/null";;
-                6) echo `"clear"`;;
+                6) exit;;
                 *) echo "Invalid choice"
         esac
         echo -n "Enter your choice: "
