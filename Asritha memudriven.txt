@@ -11,11 +11,11 @@
         do
                 read choice
                 case $choice in
-                        1) echo "-name emp.txt" ;;
-                        2) echo "-mtime-3" ;;
-                        3) echo "-name ".txt" | -name ".dat" | grep "capgemini" ";;
-                        4) echo "/home -type" f ;;
-                        5) echo "-name emp.txt > /dev/null" ;;
+                        1) find "-name emp.txt" ;;
+                        2) find "-mtime-3" ;;
+                        3) find "-name ".txt" | -name ".dat" | grep "capgemini" ";;
+                        4) find "/home -type" f ;;
+                        5) find "-name emp.txt > /dev/null" ;;
                         6) exit;;
                         *) echo "invalid option" ;;
 
