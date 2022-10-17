@@ -1,0 +1,27 @@
+echo "check for the file emp.txt"
+echo "Search for all the files which are modified before three days"
+echo "search for all the files ending with .txt or .dat that contains the string capgemini"
+echo "search for all the reqular files for a given directory /home"
+echo "Search for a file "emp.dat" from the root directory, error messages should be redirected to null device"
+echo "Exit"
+
+while :
+do
+	read -p "Enter your choice:" CHOICE
+
+	case $CHOICE in
+		1) find -name emp.txt
+			;; 
+		2) find -mtime 3
+			;;
+		3) find -name '*.dat' -o -name '*.txt' | grep "capgemini"
+			;;
+		4) find $HOME -type f
+			;;
+		5) find / -name emp.dat > /dev/null 
+			;;
+		6) exit
+			;;
+		*) echo "Invalid"
+	esac
+done
