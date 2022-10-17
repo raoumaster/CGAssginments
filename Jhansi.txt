@@ -20,5 +20,7 @@ read-p "Enter your choice : " choice
                 5) find -name empt.dat > /dev/null;;
                 6) exit;;
                 $)echo "Invalid option";;
+              
         esac
+        echo-n "Enter your choice :"
         done
