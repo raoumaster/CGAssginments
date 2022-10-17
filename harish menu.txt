@@ -1,0 +1,27 @@
+#!/bin/sh
+echo "please select an option below
+1.check for file  emp.txt
+2.search for all the files which are modified before three days
+3.search for all the files ending with .txt or .dat that contains the string capgemini
+4.search for all the regular files for a given directory /home
+5.search for a file emp.dat from the root directory ,error messages should be redirected to null device
+6.exit "
+
+read option
+case $option in
+     "1")
+        find  -name emp.txt
+     ;;
+     "2")
+        find -mtime -3
+     ;;
+     "3")
+        find -name *.txt | -name *.dat | grep "capgemini"
+     ;;
+     "4")
+       find /home/harish -type f
+     ;;
+     "5")
+       find -name emp.dat > /dev/null
+     ;;
+esac
