@@ -1,0 +1,39 @@
+# 17th October Assessment - Anuj Mallick
+echo "Select from the below menu: "
+echo "1. check for the file 'emp.txt'"
+echo "2. search for all the files which are modified before"
+echo "3. search for all the files ending with .txt or .dat that contains the string 'capgemini'"
+echo "4. search for all the reqular files for a given directory /home"
+echo "5. Search for a file "emp.dat" from the root directory, error messages should be redirected to null device"
+echo "6. exit"
+
+echo "It will ask for choice until you choose 6. exit."
+echo -n "Enter your choice: "
+while :
+do
+        read choice
+        case $choice in
+                1) find -name emp.txt ;;
+                #1) File=emp.txt
+                #       if test -f "$File"; then
+                #               echo "$File exist "
+                #       else
+                #       echo "$File does not exist"
+                #       fi ;;
+                2) find . -mtime -7 ;;
+                3) find . -type f \( -iname \*.txt -o -iname \*.bat \) | xargs grep "capgemini";;
+                #4) #HOME=/mnt/d/Learning
+                #       search_dir=`ls ./HOME/*`
+                #       for entry in "$search_dir"
+                #       do
+                #                 echo "$entry"
+                #         done ;;
+                4) find /home -type f ;;
+                #5) find / -iname 'emp.bat'   2> /dev/null ;;
+                5) find -name emp.dat > /dev/null ;;
+                6) echo "Tasks completed. Quitting..."
+                        exit;;
+                *) echo "Invalid option";;
+        esac
+        echo -n "Enter your choice: "
+done
