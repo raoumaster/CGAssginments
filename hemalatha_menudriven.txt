@@ -1,0 +1,22 @@
+#!/bin/bash
+# to display the menu to the user for executing the find command
+choice=1
+while test ${choice} -le 6
+do
+        echo "1. check fot the file emp.txt"
+        echo "2. search for all the files which are modified before three days"
+        echo "3. search for all the files ending with .txt or .dat that contains the string "capgemini""
+        echo "4. search for all the regular files for a given directory /home"
+        echo "5. search for a file "emp.dat" from the root directory,error messages should be redirected to null device"
+        echo "6. Exit"
+read -p "Enter your choice: " choice
+case $choice in
+1)  find -name  emp.txt;;
+2)  find -mtime -3;;
+3)  find -name  *.txt | -name *.dat | grep "capgemini";;
+4)  find /home -type f;;
+5)  find /root -name emp.dat &> /dev/null ;;
+6) break;;
+*) echo "Invalid choice";;
+esac
+done
