@@ -3,7 +3,8 @@
 #include <pthread.h>
 
 int n[10] = { 3, 12, 7, 43, 24, 2, 53, 76, 46, 17 };
-char c[10] = { 'r', 'g', 's', 'a', 'c', 'b', 'n', 'm', 'z', 'q' };
+//NOT SORTED FOR CHARACTER ARRAY
+char c[10] = { 'r', 'g', 's', 'a', 'c', 'b', 'n', 'm', 'z', 'q' }; 
 
 void swap(int *xp, int *yp)
 {
