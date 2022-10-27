@@ -13,10 +13,10 @@ void swap(int *xp, int *yp)
 }
 
 void *selection() {
-        int i, j, min_idx, n=10, k;
-        for (i = 0; i < n-1; i++) {
+        int i, j, min_idx, f=10, k;
+        for (i = 0; i < f-1; i++) {
                 min_idx = i;
-                for (j = i+1; j < n; j++) {
+                for (j = i+1; j < f; j++) {
                         if (n[j] < n[min_idx])
                                 min_idx = j;
                         if(min_idx != i)
@@ -24,14 +24,23 @@ void *selection() {
                 }
         }
         printf("\nAfter sorting::");
-        for(k = 0; k < 10; k++) {
+        for(k = 0; k < 10; k++)
                 printf("%d ",n[k]);
         printf("\n");
-        }
 }
 
 void *bubble() {
-
+        int i, j, f=10, k;
+        for (i = 0; i < f - 1; i++) {
+                for (j = 0; j < f - i - 1; j++) {
+                        if (n[j] > n[j + 1])
+                                swap(&n[j], &n[j + 1]);
+                }
+        }
+        printf("\nAfter sorting::");
+        for(k = 0; k < 10; k++)
+                printf("%d ",n[k]);
+        printf("\n");
 }
 
 int main() {
