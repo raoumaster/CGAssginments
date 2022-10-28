@@ -1,0 +1,100 @@
+#include <stdio.h>
+#include<unistd.h>
+#include <pthread.h>
+
+int n[10] = { 1, 36, 77, 26, 12, 72, 74, 79, 57, 8 };
+char c[10] = { 'z', 'q', 'a', 'y', 't', 'w', 'q', 'l', 's', 'r' };
+void swap(int *xp, int *yp)
+{
+        int temp = *xp;
+        *xp = *yp;
+        *yp = temp;
+}
+void swap2(char *tp, char *sp)
+{
+        char temp = *tp;
+        *tp = *sp;
+        *sp = temp;
+}
+
+void *selection() {
+        int i, j, min_idx, f=10, k;
+        for (i = 0; i < f-1; i++) {
+                min_idx = i;
+                for (j = i+1; j < f; j++) {
+                        if (n[j] < n[min_idx])
+                                min_idx = j;
+                        if(min_idx != i)
+                                swap(&n[min_idx], &n[i]);
+							}
+        }
+        printf("\nAfter Sorting: ");
+        for(k = 0; k < 10; k++)
+                printf("%d ",n[k]);
+        printf("\n");
+
+        int a, b, min_idx1, g=10, h;   
+         for (a=0; a < g-1; a++) {
+			min_idx1 = a;
+			 for(b = a+1; b < g; b++) {
+					if (c[b] < c[min_idx1])
+							min_idx1 =b;
+					 if(min_idx1 != a)
+							swap2(&c[min_idx1], &c[a]);
+									}
+	  }
+	  printf("\nAfter Sorting: ");
+	  for(h = 0; h < 10; h++)
+		    printf("%c ",c[h]);
+	  printf("\n");
+}
+void *bubble() {
+        int i, j, f=10, k;
+        for (i = 0; i < f - 1; i++) {
+                for (j = 0; j < f - i - 1; j++) {
+                        if (n[j] > n[j + 1])
+                                swap(&n[j], &n[j + 1]);
+                }
+        }
+        printf("\nAfter sorting: ");
+        for(k = 0; k < 10; k++)
+                printf("%d ",n[k]);
+        printf("\n");
+
+        int a, b, g=10, h;
+        for (a = 0; a < g - 1; a++) {
+                        for (b = 0; b < g - a - 1; b++) {
+                                   if (c[b] > c[b + 1])
+                                           swap2(&c[b], &c[b + 1]);
+                        }
+        }
+        printf("\nAfter sorting: ");
+        for(h = 0; h < 10; h++)
+                        printf("%c ",c[h]);
+        printf("\n");
+}
+int main() {
+        pthread_t tid1;
+        pthread_t tid2;
+        int c;
+        printf("\t1. Selection Sort. \n");
+        printf("\t2. Bubble Sort. \n");
+        printf("\t3. Exit. \n");
+        while(1) {
+                printf("\nEnter your choice: ");
+                scanf("%d",&c);
+                switch(c) {
+                        case 1: pthread_create(&tid1, NULL, selection, NULL);
+                                pthread_join(tid1, NULL);
+                                pthread_cancel(tid1);
+                                break;
+                        case 2: pthread_create(&tid2, NULL, bubble, NULL);
+                                pthread_join(tid2, NULL);
+                                pthread_cancel(tid2);
+                                break;
+                        case 3: return 0;
+                        default: printf("Invalid choice.");
+                }
+        }
+        return 0;
+}
