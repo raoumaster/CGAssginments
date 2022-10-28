@@ -1,0 +1,92 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<pthread.h>
+
+void *fibonacci()
+{
+        int t1=0, t2=1, next =0, n;
+        printf("Enter a positive number: \n");
+        scanf("%d", &n);
+        printf("Fibonacci Series: %d, %d ",t1,t2);
+        next = t1+t2;
+        while(next<=n){
+                printf("%d, ",next);
+                t1= t2;
+                t2 = next;
+                next = t1+t2;
+        }
+}
+void *factorial()
+{
+        int num, res, n;
+        printf("Enter an integer: \n");
+        scanf("%d", &num);
+        n =num;
+        res =num;
+        while(num>1)
+        {
+                res = res*(num-1);
+                num = num-1;
+        }
+        printf("\nFactorial of %d is %d. \n\n",n,res);
+}
+void *prime()
+{
+        int n, num,i, flag=0;
+        printf("Enter an integer: ");
+        scanf("%d", &num);
+        n = num;
+        for(i=2;i<=n/2;i++)
+        {
+                if(num%i==0)
+                {
+                        flag =1;
+                        break;
+                }
+        }
+ 	      if(num==1)
+                printf("\n1 is neither prime not composite");
+        else
+        {
+                if (flag==0)
+                        printf("\n%d is prime number.\n\n",n);
+                else
+                        printf("\n%d is not a prime number.\n\n",n);
+        }
+}
+int main()
+{
+        pthread_t tid1;
+        pthread_t tid2;
+        pthread_t tid3;
+        int ch;
+        while(ch!=4)
+        {
+                printf("\n\n1. Fibonacci Series: \n");
+                printf("2. Factorial of number: \n");
+                printf("3. Check Prime or not: \n");
+                printf("4. Exit \n");
+                printf("Enter Your Choice: ");
+                scanf("%d", &ch);
+                switch(ch)
+                {
+                case 1: pthread_create(&tid1, NULL, fibonacci, NULL);
+                        pthread_join(tid1,NULL);
+                        break;
+                case 2: pthread_create(&tid2, NULL, factorial, NULL);
+                        pthread_join(tid2, NULL);
+                        break;
+                case 3: pthread_create(&tid3, NULL, prime, NULL);
+                        pthread_join(tid3, NULL);
+                        break;
+                case 4: pthread_cancel(tid1);
+                        pthread_cancel(tid2);
+                        pthread_cancel(tid3);
+                        printf("EXIT \n");
+                        return EXIT_SUCCESS;
+                default: printf("INVALID CHOICE");
+                break;
+                }
+        }
+                return 0;
+}
