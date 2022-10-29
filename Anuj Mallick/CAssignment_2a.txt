@@ -1,0 +1,97 @@
+/* Menu driven program to sort integers using bubble sort and selection sort algorithm*/
+#include<stdio.h>
+#include<stdlib.h>
+#include<pthread.h>
+
+void *bubble()
+{
+        int i,j,temp,n;
+        int *p1;
+        printf("Enter the number of integers you want to be sorted: ");
+        scanf("%d",&n);
+        p1=(int*)malloc(n*sizeof(int));
+        printf("Enter %d integers:\n", n);
+        for(i=0;i<n;i++)
+                scanf("%d",&p1[i]);
+        for(i=0;i<n;i++)
+        {
+                for(j=i+1;j<n;j++)
+                {
+                        if(p1[i]>p1[j])
+                        {
+                                temp=p1[i];
+                                p1[i]=p1[j];
+                                p1[j]=temp;
+                        }
+                }
+        }
+        printf("Sorted order (Using Bubble Sort):\n");
+        for(i=0;i<n;i++)
+                printf("%d\n",p1[i]);
+        free(p1);
+}
+
+void *selection()
+{
+        int *p2,n,i,j,position,temp;
+        printf("Enter the number of integers you want to be sorted: ");
+        scanf("%d",&n);
+        p2=(int *)malloc(n*sizeof(int));
+        printf("Enter %d integers:\n", n);
+        for(i=0;i<n;i++)
+                scanf("%d", &p2[i]);
+
+        for(i = 0; i < n - 1; i++)
+        {
+                position=i;
+                for(j = i + 1; j < n; j++)
+                {
+                        if(p2[position] > p2[j])
+                                position=j;
+                }
+                if(position != i)
+                {
+                        temp=p2[i];
+                        p2[i]=p2[position];
+                        p2[position]=temp;
+                }
+        }
+        printf("Sorted order (Using Selection Sort):\n");
+        for(i=0;i<n;i++)
+                printf("%d\n",p2[i]);
+        free(p2);
+}
+
+int main()
+{
+        pthread_t tid1;
+        pthread_t tid2;
+        int ch;
+        do
+        {
+                printf("\nSorting of integers:-\n");
+                printf("\nSelect from the options:\n");
+                printf("1. Use Bubble Sort: \n");
+                printf("2. Use Selection Sort: \n");
+                printf("3. Exit \n");
+                printf("\nEnter your choice:");
+                scanf("%d",&ch);
+                switch(ch)
+                {
+                        case 1:pthread_create(&tid1, NULL, bubble, NULL);
+                               pthread_join(tid1, NULL);
+                               pthread_cancel(tid1);
+                               break;
+                        case 2:pthread_create(&tid2, NULL, selection, NULL);
+                               pthread_join(tid2, NULL);
+                               pthread_cancel(tid2);
+                               break;
+                        case 3:printf("Exit Successful \n");
+                               return EXIT_SUCCESS;
+                        default : printf("Invalid Choice\n\n");
+                                  break;
+                }
+        }
+        while(ch !=3);
+        return 0;
+}
