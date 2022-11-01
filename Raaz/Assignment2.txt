@@ -1,20 +1,23 @@
 #include <stdio.h>
 #include<unistd.h>
 #include <pthread.h>
+#include<string.h>
 
 int n[10] = { 1, 36, 77, 26, 12, 72, 74, 79, 57, 8 };
-char c[10] = { 'z', 'q', 'a', 'y', 't', 'w', 'q', 'l', 's', 'r' };
+const char* arr[] = { "Raaz", "Samir", "Dipak", "Aman", "Nisha", "Sara", "Babloo", "Mark", "Steve", "Zara" };
 void swap(int *xp, int *yp)
 {
         int temp = *xp;
         *xp = *yp;
         *yp = temp;
 }
-void swap2(char *tp, char *sp)
+static int myCompare(const void* a, const void* b)
 {
-        char temp = *tp;
-        *tp = *sp;
-        *sp = temp;
+        return strcmp(*(const char** )a, *(const char **)b);
+}
+void sort(const char* arr[], int n)
+{
+        qsort(arr, n,  sizeof(const char*), myCompare);
 }
 
 void *selection() {
@@ -25,28 +28,22 @@ void *selection() {
                         if (n[j] < n[min_idx])
                                 min_idx = j;
                         if(min_idx != i)
-                                swap(&n[min_idx], &n[i]);
-							}
+                                swap(&n[min_idx], &n[i]);                                                                                                                                                                                                 }
         }
-        printf("\nAfter Sorting: ");
+        printf("\nAfter Sorting:\n");
         for(k = 0; k < 10; k++)
                 printf("%d ",n[k]);
         printf("\n");
 
-        int a, b, min_idx1, g=10, h;   
-         for (a=0; a < g-1; a++) {
-			min_idx1 = a;
-			 for(b = a+1; b < g; b++) {
-					if (c[b] < c[min_idx1])
-							min_idx1 =b;
-					 if(min_idx1 != a)
-							swap2(&c[min_idx1], &c[a]);
-									}
-	  }
-	  printf("\nAfter Sorting: ");
-	  for(h = 0; h < 10; h++)
-		    printf("%c ",c[h]);
-	  printf("\n");
+        int n = sizeof(arr)/sizeof(arr[0]);
+        int l;
+        sort(arr,n);
+        printf("\nAfter Sorting:\n");
+        for(l=0;l<n;l++)
+                printf("%d: %s \n", l, arr[l]);
+
+
+
 }
 void *bubble() {
         int i, j, f=10, k;
@@ -56,22 +53,18 @@ void *bubble() {
                                 swap(&n[j], &n[j + 1]);
                 }
         }
-        printf("\nAfter sorting: ");
+        printf("\nAfter sorting:\n");
         for(k = 0; k < 10; k++)
                 printf("%d ",n[k]);
         printf("\n");
 
-        int a, b, g=10, h;
-        for (a = 0; a < g - 1; a++) {
-                        for (b = 0; b < g - a - 1; b++) {
-                                   if (c[b] > c[b + 1])
-                                           swap2(&c[b], &c[b + 1]);
-                        }
-        }
-        printf("\nAfter sorting: ");
-        for(h = 0; h < 10; h++)
-                        printf("%c ",c[h]);
-        printf("\n");
+        int n = sizeof(arr)/sizeof(arr[0]);
+        int l;
+        sort(arr,n);
+        printf("\nAfter Sorting:\n");
+        for(l=0;l<n;l++)
+                printf("%d: %s \n",l,arr[l]);
+
 }
 int main() {
         pthread_t tid1;
