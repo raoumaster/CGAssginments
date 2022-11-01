@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include<unistd.h>
+#include <pthread.h>
+
+int n[10] = { 3, 12, 7, 43, 24, 2, 53, 76, 46, 17 };
+//NOT SORTED FOR CHARACTER ARRAY
+char c[10] = { 'r', 'g', 's', 'a', 'c', 'b', 'n', 'm', 'z', 'q' }; 
+
+void swap(int *xp, int *yp)
+{
+        int temp = *xp;
+        *xp = *yp;
+        *yp = temp;
+}
+
+void *selection() {
+        int i, j, min_idx, f=10, k;
+        for (i = 0; i < f-1; i++) {
+                min_idx = i;
+                for (j = i+1; j < f; j++) {
+                        if (n[j] < n[min_idx])
+                                min_idx = j;
+                        if(min_idx != i)
+                                swap(&n[min_idx], &n[i]);
+                }
+        }
+        printf("\nAfter sorting::");
+        for(k = 0; k < 10; k++)
+                printf("%d ",n[k]);
+        printf("\n");
+}
+
+void *bubble() {
+        int i, j, f=10, k;
+        for (i = 0; i < f - 1; i++) {
+                for (j = 0; j < f - i - 1; j++) {
+                        if (n[j] > n[j + 1])
+                                swap(&n[j], &n[j + 1]);
+                }
+        }
+        printf("\nAfter sorting::");
+        for(k = 0; k < 10; k++)
+                printf("%d ",n[k]);
+        printf("\n");
+}
